@@ -36,7 +36,7 @@ export const LoginPage = () => {
 
   const { status } = useSelector((state: RootState) => state.auth);
 
-  const isAuthenticated = useMemo(() => status === 'checking', [status]);
+  const isAuthenticated = useMemo(() => status === 'ckecking', [status]);
 
   return (
     <AuthLayout title="Login">
