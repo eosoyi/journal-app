@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface CounterState {
   status: string;
@@ -10,7 +10,7 @@ export interface CounterState {
 }
 
 const initialState: CounterState = {
-  status: "not-authenticated",
+  status: "checking",
   uid: null,
   email: null,
   displayName: null,

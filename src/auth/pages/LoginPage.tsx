@@ -27,7 +27,6 @@ export const LoginPage = () => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    //dispatch(checkingAuthentication(formState.email, formState.password));
     dispatch(startLoginWithEmailPassword(formState.email, formState.password));
   };
 
