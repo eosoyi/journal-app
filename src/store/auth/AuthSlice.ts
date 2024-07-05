@@ -19,7 +19,7 @@ const initialState: CounterState = {
 };
 
 export const AuthSlice = createSlice({
-  name: "counter",
+  name: "auth",
   initialState,
   reducers: {
     login: (state, { payload }) => {
@@ -31,15 +31,15 @@ export const AuthSlice = createSlice({
         state.errorMessage = null;
     },
     logout: (state, { payload }) => {
-      state.status = "no-authenticated",
+      state.status = "not-authenticated",
         state.uid = null,
         state.email = null,
         state.displayName = null,
         state.photoURL = null,
-        state.errorMessage = payload.message;
+        state.errorMessage = payload?.message;
     },
     checkingCredentials: (state) => {
-      state.status = "ckecking";
+      state.status = "checking";
     },
   },
 });

@@ -11,7 +11,7 @@ const drawerWidth: number = 240;
 
 export const JournalLayout: React.FC<Props> = ({ children }) => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex' }} className="animate__animated animate__fadeIn animate__faster">
       <NavBar drawerWidth={drawerWidth} ></NavBar>
       <SideBar drawerWidth={drawerWidth} ></SideBar>
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
