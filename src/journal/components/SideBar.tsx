@@ -1,7 +1,7 @@
-import { TurnedInNot } from "@mui/icons-material"
-import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
+import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material"
 import { useSelector } from "react-redux"
 import { RootState } from "../../store/Store"
+import { SideBarItem } from "./SideBarItem"
 
 interface Props {
     drawerWidth: number
@@ -9,6 +9,7 @@ interface Props {
 
 export const SideBar: React.FC<Props> = ({ drawerWidth }) => {
     const { displayName } = useSelector((state: RootState) => state.auth);
+    const { notes } = useSelector((state: RootState) => state.journal)
     return (
         <Box component='nav' sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
             <Drawer variant="permanent" open sx={{ display: { xs: 'block', '&, .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth } } }}>
@@ -18,18 +19,8 @@ export const SideBar: React.FC<Props> = ({ drawerWidth }) => {
                 <Divider></Divider>
                 <List>
                     {
-                        ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'diciembre'].map(text => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <TurnedInNot></TurnedInNot>
-                                    </ListItemIcon>
-                                    <Grid container>
-                                        <ListItemText primary={text}></ListItemText>
-                                        <ListItemText secondary={'Lorem ipsum dolor sit amet consectetur adipisicing elit.'}></ListItemText>
-                                    </Grid>
-                                </ListItemButton>
-                            </ListItem>
+                        notes!.map(note => (
+                            <SideBarItem key={note.id} title={note.title} body={note.body} ></SideBarItem>
                         ))
                     }
                 </List>

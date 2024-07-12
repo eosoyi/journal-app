@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit"
 import { doc, collection, setDoc } from 'firebase/firestore/lite'
 import { FirebaseDB } from '../../firebase/config.js'
-import { addNewEmptyNote, savingNewNote, setActiveNote } from "./journalSlice.js"
+import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes } from "./journalSlice.js"
 import { loadNotes } from "../../helpers/loadNotes.js"
 
 export const startNewNote = () => {
@@ -31,8 +31,9 @@ export const startLoadingNotes = () => {
         const { uid } = getState().auth;
 
         if(!uid) throw new Error('El UID del usuario no existe');
+        
+        const notes = await loadNotes(uid);
 
-        console.log('uid == ',uid)
-        await loadNotes(uid);
+        dispatch(setNotes(notes));
     }
 }
