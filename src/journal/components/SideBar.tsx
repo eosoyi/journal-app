@@ -20,7 +20,10 @@ export const SideBar: React.FC<Props> = ({ drawerWidth }) => {
                 <List>
                     {
                         notes!.map(note => (
-                            <SideBarItem key={note.id} title={note.title} body={note.body} ></SideBarItem>
+                            <SideBarItem 
+                                key={note.id} 
+                                {...note}                            
+                            />
                         ))
                     }
                 </List>

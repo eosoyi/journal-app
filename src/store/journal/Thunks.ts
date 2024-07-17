@@ -19,7 +19,6 @@ export const startNewNote = () => {
             date: new Date().getTime(),
         }
         const resp = await setDoc(newDoc, newNote);
-        console.log({ newNote, resp })
         newNote.id = newDoc.id;
         dispatch(addNewEmptyNote(newNote));
         dispatch(setActiveNote(newNote))
@@ -30,10 +29,22 @@ export const startLoadingNotes = () => {
     return async (dispatch: Dispatch, getState) => {
         const { uid } = getState().auth;
 
-        if(!uid) throw new Error('El UID del usuario no existe');
-        
+        if (!uid) throw new Error('El UID del usuario no existe');
+
         const notes = await loadNotes(uid);
 
         dispatch(setNotes(notes));
+    }
+}
+
+export const startSaveNote = () => {
+    return async (dispatch: Dispatch, getState) => {
+        const { uid } = getState().auth;
+        const { active } = getState().journal;
+        const noteToFirestore = { ...active };
+        delete noteToFirestore.id;
+
+        const docRef = doc(FirebaseDB, `${uid}/journal/notes/${active.id}`);
+        await setDoc(docRef, noteToFirestore, { merge: true });
     }
 }
