@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit"
 import { doc, collection, setDoc } from 'firebase/firestore/lite'
 import { FirebaseDB } from '../../firebase/config.js'
-import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes } from "./journalSlice.js"
+import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes, setSaving, updateNote } from "./journalSlice.js"
 import { loadNotes } from "../../helpers/loadNotes.js"
 
 export const startNewNote = () => {
@@ -39,6 +39,7 @@ export const startLoadingNotes = () => {
 
 export const startSaveNote = () => {
     return async (dispatch: Dispatch, getState) => {
+        dispatch(setSaving());
         const { uid } = getState().auth;
         const { active } = getState().journal;
         const noteToFirestore = { ...active };
@@ -46,5 +47,7 @@ export const startSaveNote = () => {
 
         const docRef = doc(FirebaseDB, `${uid}/journal/notes/${active.id}`);
         await setDoc(docRef, noteToFirestore, { merge: true });
+
+        dispatch(updateNote(active));
     }
 }
