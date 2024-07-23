@@ -56,10 +56,10 @@ export const NoteView = () => {
                     style={{ display: 'none' }}
                     ref={fileInputRef}
                 />
-                <IconButton color="primary" disabled={isSaving} onClick={() => fileInputRef.current.click()} >
+                <IconButton color="primary" onClick={() => fileInputRef.current.click()} >
                     <UploadOutlined></UploadOutlined>
                 </IconButton>
-                <Button onClick={onSaveNote} color="primary" sx={{ padding: 2 }} disabled={isSaving} >
+                <Button onClick={onSaveNote} color="primary" sx={{ padding: 2 }} >
                     <SaveOutlined sx={{ fontSize: 30, mr: 1 }}></SaveOutlined>
                     Guardar
                 </Button>
@@ -92,7 +92,9 @@ export const NoteView = () => {
                 </TextField>
             </Grid>
 
-            <ImageGallery></ImageGallery>
+            <ImageGallery
+                images={note.imageUrls}
+            />
 
         </Grid>
     )

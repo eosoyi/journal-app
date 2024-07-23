@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit"
 import { doc, collection, setDoc } from 'firebase/firestore/lite'
 import { FirebaseDB } from '../../firebase/config.js'
-import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes, setSaving, updateNote } from "./journalSlice.js"
+import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNote, setSaving, updateNote } from "./journalSlice.js"
 import { loadNotes } from "../../helpers/loadNotes.js"
 import { fileUpload } from "../../helpers/fileUpload.js"
 
@@ -56,7 +56,12 @@ export const startSaveNote = () => {
 export const startUploadingFiles = (files = []) => {
     return async (dispatch: Dispatch) => {
         dispatch(setSaving());
-        await fileUpload(files[0]);
-        console.log(files)
+        // creamos un arreglo de promesas
+        const fileUploadPromises = [];
+        for (const file of files) {
+            fileUploadPromises.push( fileUpload(file) );
+        }
+        const photosUrls = await Promise.all(fileUploadPromises);
+        dispatch(setPhotosToActiveNote(photosUrls));
     }
 }
