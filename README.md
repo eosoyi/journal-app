@@ -1,30 +1,28 @@
-# React + TypeScript + Vite
+# React + React Redux + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación de notas que permite a los usuarios iniciar sesión con Google y almacenar sus notas junto con imágenes. Utiliza React, React Redux, TypeScript y Vite, y está respaldado por Firebase y Cloudinary.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Autenticación con Google:** Los usuarios pueden iniciar sesión utilizando sus cuentas de Google gracias a Firebase Authentication.
+- **Gestión de Notas:** Los usuarios pueden crear, editar y eliminar notas.
+- **Almacenamiento de Imágenes:** Las imágenes adjuntas a las notas se almacenan en Cloudinary.
+- **Almacenamiento en Firestore:** Las notas y los metadatos de las imágenes se almacenan en Firebase Firestore.
 
-## Expanding the ESLint configuration
+## Tecnologías Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [React](https://reactjs.org/)
+- [React Redux](https://react-redux.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Firebase Authentication](https://firebase.google.com/docs/auth)
+- [Firebase Firestore](https://firebase.google.com/docs/firestore)
+- [Cloudinary](https://cloudinary.com/)
 
-- Configure the top-level `parserOptions` property like this:
+## Instalación
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+1. Clona este repositorio:
+   ```sh
+   git clone https://github.com/tu-usuario/tu-repositorio.git
+   cd tu-repositorio
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
