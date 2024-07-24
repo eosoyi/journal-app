@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit"
-import { doc, collection, setDoc } from 'firebase/firestore/lite'
+import { doc, collection, setDoc, deleteDoc } from 'firebase/firestore/lite'
 import { FirebaseDB } from '../../firebase/config.js'
-import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNote, setSaving, updateNote } from "./journalSlice.js"
+import { addNewEmptyNote, deleteNoteById, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNote, setSaving, updateNote } from "./journalSlice.js"
 import { loadNotes } from "../../helpers/loadNotes.js"
 import { fileUpload } from "../../helpers/fileUpload.js"
 
@@ -59,9 +59,22 @@ export const startUploadingFiles = (files = []) => {
         // creamos un arreglo de promesas
         const fileUploadPromises = [];
         for (const file of files) {
-            fileUploadPromises.push( fileUpload(file) );
+            fileUploadPromises.push(fileUpload(file));
         }
         const photosUrls = await Promise.all(fileUploadPromises);
         dispatch(setPhotosToActiveNote(photosUrls));
+    }
+}
+
+export const startDeletingNote = () => {
+    return async (dispatch: Dispatch, getState) => {
+        const { uid } = getState().auth;
+        const { active } = getState().journal;
+
+        const docRef = doc(FirebaseDB, `${uid}/journal/notes/${active.id}`);
+
+        await deleteDoc(docRef);
+
+        dispatch(deleteNoteById(active.id));
     }
 }

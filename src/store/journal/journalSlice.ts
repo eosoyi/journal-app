@@ -60,13 +60,20 @@ export const journalSlice = createSlice({
         },
 
         deleteNoteById: (state, action) => {
-            console.log('deleteNoteById')
+            state.active = null;
+            state.notes = state.notes?.filter( note => note.id !== action.payload);
         },
 
+        clearNotesLogout: (state) => {
+            state.isSaving = false;
+            state.messageSaved = '';
+            state.notes = [];
+            state.active = null;
+        }
 
     },
 })
 
-export const { savingNewNote, addNewEmptyNote, setActiveNote, setNotes, setSaving, updateNote, deleteNoteById, setPhotosToActiveNote } = journalSlice.actions
+export const { savingNewNote, addNewEmptyNote, setActiveNote, setNotes, setSaving, updateNote, deleteNoteById, setPhotosToActiveNote, clearNotesLogout } = journalSlice.actions
 
 export default journalSlice.reducer
